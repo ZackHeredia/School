@@ -56,52 +56,194 @@ public class DBHelper
 		
 		return null;
 	}
-	public Teacher[] selectTeachers (String value) 
+	public ArrayList<Teacher> selectTeachers (String value) 
 	{
-		return (Teacher[]) select(value, TeacherEntry.TABLE_NAME);
+		String sql;
+		
+		try
+		{
+			ResultSet rs = executeQueryForResult(sql);
+		} 
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
-	public Employee[] selectEmployees (String value) 
+	public ArrayList<Employee> selectEmployees (String value) 
 	{
-		return (Employee[]) select(value, EmployeeEntry.TABLE_NAME);
+		String sql;
+		ResultSet rs;
+		
+		try
+		{
+			rs = executeQueryForResult(sql);
+		} 
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rs;
 	}
 
 	public boolean insertStudent (Student student) 
 	{
-		return insert(student, StudentEntry.TABLE_NAME);
+		String sql;
+		boolean isSuccessfull;
+		
+		try
+		{
+			isSuccessfull= executeQuery(sql);
+		} 
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return isSuccessfull;
 	}
 	public boolean insertTeacher (Teacher teacher) 
 	{
-		return insert(teacher, TeacherEntry.TABLE_NAME);
+		String sql;
+		boolean isSuccessfull;
+		
+		try
+		{
+			isSuccessfull= executeQuery(sql);
+		} 
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return isSuccessfull;
 	}
 	public boolean insertEmployee (Employee employee) 
 	{
-		return insert(employee, EmployeeEntry.TABLE_NAME);
+		String sql;
+		boolean isSuccessfull;
+		
+		try
+		{
+			isSuccessfull= executeQuery(sql);
+		} 
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return isSuccessfull;
 	}
 
 	public boolean updateStudent (Student student) 
 	{
-		return update(student, StudentEntry.TABLE_NAME);
+		String sql;
+		boolean isSuccessfull;
+		
+		try
+		{
+			isSuccessfull= executeQuery(sql);
+		} 
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return isSuccessfull;
 	}
 	public boolean updateTeacher (Teacher teacher) 
 	{
-		return update(teacher, TeacherEntry.TABLE_NAME);
+		String sql;
+		boolean isSuccessfull;
+		
+		try
+		{
+			isSuccessfull= executeQuery(sql);
+		} 
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return isSuccessfull;;
 	}
 	public boolean updateEmployee (Employee employee) 
 	{
-		return update(employee, EmployeeEntry.TABLE_NAME);
+		String sql;
+		boolean isSuccessfull;
+		
+		try
+		{
+			isSuccessfull= executeQuery(sql);
+		} 
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return isSuccessfull;
 	}
 
 	public boolean deleteStudent (long id) 
 	{
-		return delete(id, StudentEntry.TABLE_NAME);
+		String sql;
+		boolean isSuccessfull;
+		
+		try
+		{
+			isSuccessfull= executeQuery(sql);
+		} 
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return isSuccessfull;
 	}
 	public boolean deleteTeacher (long id) 
 	{
-		return delete(id, TeacherEntry.TABLE_NAME);
+		String sql;
+		boolean isSuccessfull;
+		
+		try
+		{
+			isSuccessfull= executeQuery(sql);
+		} 
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return isSuccessfull;
 	}
 	public boolean deleteEmployee (long id) 
 	{
-		return delete(id, EmployeeEntry.TABLE_NAME);
+		String sql;
+		boolean isSuccessfull;
+		
+		try
+		{
+			isSuccessfull= executeQuery(sql);
+		} 
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return isSuccessfull;
 	}
 
 	private void createTables () throws SQLException
