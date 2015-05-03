@@ -4,10 +4,13 @@ import com.school.data.contract.SchoolContract;
 import com.school.data.contract.SchoolContract.*;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 
@@ -41,8 +44,18 @@ public class DBHelper
 
 	public ArrayList<Student> selectStudents (String value) 
 	{	
-		
 		String sql;
+		long id = parseLong(value);
+		Date birth = parseDate(value);
+		
+		if(id != -1)
+		{
+			sql = "SELECT * FROM " + StudentEntry.TABLE_NAME + " WHERE id=?";
+		}
+		else if(birth != null)
+		{
+			
+		}
 		
 		try
 		{
@@ -293,5 +306,38 @@ public class DBHelper
 		boolean isSuccessfull = stmTables.execute(sql);
 		
 		return isSuccessfull;
+	}
+	
+	private long parseLong (String string)
+	{	
+		long result;
+		
+		try
+		{
+			result = Long.parseLong(string);
+		}
+		catch(NumberFormatException e)
+		{
+			return -1;
+		}
+		
+		return result;
+	}
+	private Date parseDate (String string)
+	{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		sdf.setLenient(false);
+		Date date;
+		
+		try
+		{
+			date = (Date) sdf.parse(string);
+		}
+		catch(ParseException e)
+		{
+			return null;
+		}
+		
+		return date;
 	}
 }
