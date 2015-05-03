@@ -39,9 +39,22 @@ public class DBHelper
 		return helper;
 	}
 
-	public Student[] selectStudents (String value) 
+	public ArrayList<Student> selectStudents (String value) 
 	{	
-		return (Student[]) select(value, StudentEntry.TABLE_NAME);
+		
+		String sql;
+		
+		try
+		{
+			ResultSet rs = executeQueryForResult(sql);
+		} 
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	public Teacher[] selectTeachers (String value) 
 	{
@@ -113,35 +126,30 @@ public class DBHelper
 			
 			String sql = "CREATE TABLE " + StudentEntry.TABLE_NAME + sqlPerson + 
 						 sqlStudent + sqlKey;	
-			Statement stmTables = connection.createStatement();
-			stmTables.execute(sql);
+			executeQuery(sql);
 			
 			sql = "CREATE TABLE " + TeacherEntry.TABLE_NAME + sqlPerson + 
 					 sqlTeacher + sqlKey;	
-			stmTables = connection.createStatement();
-			stmTables.execute(sql);
+			executeQuery(sql);
 			
 			sql = "CREATE TABLE " + EmployeeEntry.TABLE_NAME + sqlPerson + 
 					 sqlEmployee + sqlKey;	
-			stmTables = connection.createStatement();
-			stmTables.execute(sql);
+			executeQuery(sql);
 		}
 	}
 	
-	private ResultSet select (String sql) 
+	private ResultSet executeQueryForResult (String sql) throws SQLException 
 	{
+		Statement stm = connection.createStatement();
+		ResultSet rs = stm.executeQuery(sql);
 		
+		return rs;
 	}
-	private boolean insert (Person person, String table) 
+	private boolean executeQuery (String sql) throws SQLException 
 	{
+		Statement stmTables = connection.createStatement();
+		boolean isSuccessfull = stmTables.execute(sql);
 		
-	}
-	private boolean update (Person person, String table) 
-	{
-		
-	}
-	public boolean delete (long id, String table)
-	{
-		
+		return isSuccessfull;
 	}
 }
