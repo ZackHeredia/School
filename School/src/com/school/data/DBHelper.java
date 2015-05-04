@@ -252,8 +252,15 @@ public class DBHelper
 
 	public boolean updateStudent (Student student) 
 	{
-		String sql;
-		boolean isSuccessfull;
+		boolean isSuccessfull = false;
+		
+		String sql = "UPDATE " + StudentEntry.TABLE_NAME + " SET " + StudentEntry.NAME_COLUMN + "='" +
+				     student.getName() + "', " + StudentEntry.BIRTH_COLUMN + "='" + 
+				     student.getBirth().toString() + "', " + StudentEntry.PHONE_COLUMN + "='" + 
+				     student.getPhone() + "', " + StudentEntry.ADDRESS_COLUMN + "='" + 
+				     student.getAddress() + "', " + StudentEntry.COURSE_COLUMN + "='" +
+					 student.getCourse() + "', " + StudentEntry.TUTOR_COLUMN + "='" +
+					 student.getTutor() + "' WHERE " + StudentEntry.ID_COLUMN + "=" + student.getId();
 		
 		try
 		{
@@ -261,7 +268,6 @@ public class DBHelper
 		} 
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -269,8 +275,14 @@ public class DBHelper
 	}
 	public boolean updateTeacher (Teacher teacher) 
 	{
-		String sql;
-		boolean isSuccessfull;
+		boolean isSuccessfull = false;
+		
+		String sql = "UPDATE " + TeacherEntry.TABLE_NAME + " SET " + TeacherEntry.NAME_COLUMN + "='" +
+				     teacher.getName() + "', " + TeacherEntry.BIRTH_COLUMN + "='" + 
+				     teacher.getBirth().toString() + "', " + TeacherEntry.PHONE_COLUMN + "='" + 
+				     teacher.getPhone() + "', " + TeacherEntry.ADDRESS_COLUMN + "='" + 
+				     teacher.getAddress() + "', " + TeacherEntry.SUBJECT_COLUMN + "='" +
+					 teacher.getSubject() + "' WHERE " + TeacherEntry.ID_COLUMN + "=" + teacher.getId();
 		
 		try
 		{
@@ -278,16 +290,21 @@ public class DBHelper
 		} 
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return isSuccessfull;;
+		return isSuccessfull;
 	}
 	public boolean updateEmployee (Employee employee) 
 	{
-		String sql;
-		boolean isSuccessfull;
+		boolean isSuccessfull = false;
+		
+		String sql = "UPDATE " + EmployeeEntry.TABLE_NAME + " SET " + EmployeeEntry.NAME_COLUMN + "='" +
+				     employee.getName() + "', " + EmployeeEntry.BIRTH_COLUMN + "='" + 
+				     employee.getBirth().toString() + "', " + EmployeeEntry.PHONE_COLUMN + "='" + 
+				     employee.getPhone() + "', " + EmployeeEntry.ADDRESS_COLUMN + "='" + 
+				     employee.getAddress() + "', " + EmployeeEntry.JOB_COLUMN + "='" +
+					 employee.getJob() + "' WHERE " + EmployeeEntry.ID_COLUMN + "=" + employee.getId();
 		
 		try
 		{
@@ -295,7 +312,6 @@ public class DBHelper
 		} 
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
