@@ -44,63 +44,142 @@ public class DBHelper
 
 	public ArrayList<Student> selectStudents (String value) 
 	{	
-		String sql;
+		String sql = null;
 		long id = parseLong(value);
 		Date birth = parseDate(value);
+		ArrayList<Student> students = new ArrayList<Student>();
 		
 		if(id != -1)
 		{
-			sql = "SELECT * FROM " + StudentEntry.TABLE_NAME + " WHERE id=?";
+			sql = "SELECT * FROM " + StudentEntry.TABLE_NAME + " WHERE " + StudentEntry.ID_COLUMN + 
+				  "=" + value;
 		}
 		else if(birth != null)
 		{
-			
+			sql = "SELECT * FROM " + StudentEntry.TABLE_NAME + " WHERE " + StudentEntry.BIRTH_COLUMN +
+				  "=" + value;
 		}
+		else
+			sql = "SELECT * FROM " + StudentEntry.TABLE_NAME + " WHERE " + StudentEntry.NAME_COLUMN +
+				  "=" + value + " OR " + StudentEntry.PHONE_COLUMN + "=" + value + " OR " + 
+				  StudentEntry.ADDRESS_COLUMN + "=" + value + " OR " + StudentEntry.COURSE_COLUMN +
+				  "=" + value + " OR " + StudentEntry.TUTOR_COLUMN + "=" + value;
 		
 		try
 		{
 			ResultSet rs = executeQueryForResult(sql);
+			
+			while(rs.next())
+			{
+				students.add(new Student(rs.getLong(StudentEntry.ID_COLUMN), 
+							 			 rs.getString(StudentEntry.NAME_COLUMN),
+							 			 rs.getDate(StudentEntry.BIRTH_COLUMN),
+							 			 rs.getString(StudentEntry.PHONE_COLUMN),
+							 			 rs.getString(StudentEntry.ADDRESS_COLUMN),
+							 			 rs.getString(StudentEntry.COURSE_COLUMN),
+							 			 rs.getString(StudentEntry.TUTOR_COLUMN)));
+			}
+			
+			rs.close();
 		} 
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return null;
+		return students;
 	}
 	public ArrayList<Teacher> selectTeachers (String value) 
 	{
-		String sql;
+		String sql = null;
+		long id = parseLong(value);
+		Date birth = parseDate(value);
+		ArrayList<Teacher> teachers = new ArrayList<Teacher>();
+		
+		if(id != -1)
+		{
+			sql = "SELECT * FROM " + TeacherEntry.TABLE_NAME + " WHERE " + TeacherEntry.ID_COLUMN + 
+				  "=" + value;
+		}
+		else if(birth != null)
+		{
+			sql = "SELECT * FROM " + TeacherEntry.TABLE_NAME + " WHERE " + TeacherEntry.BIRTH_COLUMN +
+				  "=" + value;
+		}
+		else
+			sql = "SELECT * FROM " + TeacherEntry.TABLE_NAME + " WHERE " + TeacherEntry.NAME_COLUMN +
+				  "=" + value + " OR " + TeacherEntry.PHONE_COLUMN + "=" + value + " OR " + 
+				  TeacherEntry.ADDRESS_COLUMN + "=" + value + " OR " + TeacherEntry.SUBJECT_COLUMN +
+				  "=" + value;
 		
 		try
 		{
 			ResultSet rs = executeQueryForResult(sql);
+			
+			while(rs.next())
+			{
+				teachers.add(new Teacher(rs.getLong(TeacherEntry.ID_COLUMN), 
+							 			 rs.getString(TeacherEntry.NAME_COLUMN),
+							 			 rs.getDate(TeacherEntry.BIRTH_COLUMN),
+							 			 rs.getString(TeacherEntry.PHONE_COLUMN),
+							 			 rs.getString(TeacherEntry.ADDRESS_COLUMN),
+							 			 rs.getString(TeacherEntry.SUBJECT_COLUMN)));
+			}
+			
+			rs.close();
 		} 
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return null;
+		return teachers;
 	}
 	public ArrayList<Employee> selectEmployees (String value) 
 	{
-		String sql;
-		ResultSet rs;
+		String sql = null;
+		long id = parseLong(value);
+		Date birth = parseDate(value);
+		ArrayList<Employee> employees = new ArrayList<Employee>();
+		
+		if(id != -1)
+		{
+			sql = "SELECT * FROM " + EmployeeEntry.TABLE_NAME + " WHERE " + EmployeeEntry.ID_COLUMN + 
+				  "=" + value;
+		}
+		else if(birth != null)
+		{
+			sql = "SELECT * FROM " + EmployeeEntry.TABLE_NAME + " WHERE " + EmployeeEntry.BIRTH_COLUMN +
+				  "=" + value;
+		}
+		else
+			sql = "SELECT * FROM " + EmployeeEntry.TABLE_NAME + " WHERE " + EmployeeEntry.NAME_COLUMN +
+				  "=" + value + " OR " + EmployeeEntry.PHONE_COLUMN + "=" + value + " OR " + 
+				  EmployeeEntry.ADDRESS_COLUMN + "=" + value + " OR " + EmployeeEntry.JOB_COLUMN +
+				  "=" + value;
 		
 		try
 		{
-			rs = executeQueryForResult(sql);
+			ResultSet rs = executeQueryForResult(sql);
+			
+			while(rs.next())
+			{
+				employees.add(new Employee(rs.getLong(EmployeeEntry.ID_COLUMN), 
+							 			 rs.getString(EmployeeEntry.NAME_COLUMN),
+							 			 rs.getDate(EmployeeEntry.BIRTH_COLUMN),
+							 			 rs.getString(EmployeeEntry.PHONE_COLUMN),
+							 			 rs.getString(EmployeeEntry.ADDRESS_COLUMN),
+							 			 rs.getString(EmployeeEntry.JOB_COLUMN)));
+			}
+			
+			rs.close();
 		} 
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return rs;
+		return employees;
 	}
 
 	public boolean insertStudent (Student student) 
@@ -277,7 +356,7 @@ public class DBHelper
 			String sqlTeacher = TeacherEntry.SUBJECT_COLUMN + " VARCHAR(24), ";
 			String sqlEmployee = EmployeeEntry.JOB_COLUMN + " VARCHAR(24), ";
 			String sqlKey = "CONSTRAINT primary_key PRIMARY KEY (" + PersonEntry.ID_COLUMN + 
-							"));";
+							"))";
 			
 			String sql = "CREATE TABLE " + StudentEntry.TABLE_NAME + sqlPerson + 
 						 sqlStudent + sqlKey;	
