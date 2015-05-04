@@ -85,6 +85,7 @@ public class DBHelper
 		catch (SQLException e)
 		{
 			e.printStackTrace();
+			return null;
 		}
 		
 		return students;
@@ -131,6 +132,7 @@ public class DBHelper
 		catch (SQLException e)
 		{
 			e.printStackTrace();
+			return null;
 		}
 		
 		return teachers;
@@ -177,6 +179,7 @@ public class DBHelper
 		catch (SQLException e)
 		{
 			e.printStackTrace();
+			return null;
 		}
 		
 		return employees;
@@ -223,6 +226,7 @@ public class DBHelper
 		catch (SQLException e)
 		{
 			e.printStackTrace();
+			return false;
 		}
 		
 		return isSuccessfull;
@@ -245,6 +249,7 @@ public class DBHelper
 		catch (SQLException e)
 		{
 			e.printStackTrace();
+			return false;
 		}
 		
 		return isSuccessfull;
@@ -269,6 +274,7 @@ public class DBHelper
 		catch (SQLException e)
 		{
 			e.printStackTrace();
+			return false;
 		}
 		
 		return isSuccessfull;
@@ -291,6 +297,7 @@ public class DBHelper
 		catch (SQLException e)
 		{
 			e.printStackTrace();
+			return false;
 		}
 		
 		return isSuccessfull;
@@ -313,6 +320,7 @@ public class DBHelper
 		catch (SQLException e)
 		{
 			e.printStackTrace();
+			return false;
 		}
 		
 		return isSuccessfull;
@@ -320,8 +328,10 @@ public class DBHelper
 
 	public boolean deleteStudent (long id) 
 	{
-		String sql;
-		boolean isSuccessfull;
+		boolean isSuccessfull = false;
+		
+		String sql = "DELETE FROM " + StudentEntry.TABLE_NAME + " WHERE " + StudentEntry.ID_COLUMN + "=" +
+					 Long.toString(id);
 		
 		try
 		{
@@ -329,16 +339,18 @@ public class DBHelper
 		} 
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 		
 		return isSuccessfull;
 	}
 	public boolean deleteTeacher (long id) 
 	{
-		String sql;
-		boolean isSuccessfull;
+		boolean isSuccessfull = false;
+		
+		String sql = "DELETE FROM " + TeacherEntry.TABLE_NAME + " WHERE " + TeacherEntry.ID_COLUMN + "=" +
+					 Long.toString(id);
 		
 		try
 		{
@@ -346,16 +358,18 @@ public class DBHelper
 		} 
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 		
 		return isSuccessfull;
 	}
 	public boolean deleteEmployee (long id) 
 	{
-		String sql;
-		boolean isSuccessfull;
+		boolean isSuccessfull = false;
+		
+		String sql = "DELETE FROM " + EmployeeEntry.TABLE_NAME + " WHERE " + EmployeeEntry.ID_COLUMN + "=" +
+					 Long.toString(id);
 		
 		try
 		{
@@ -363,11 +377,24 @@ public class DBHelper
 		} 
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 		
 		return isSuccessfull;
+	}
+	
+	public void close ()
+	{
+		try
+		{
+			connection.close();
+		} 
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		helper = null;
 	}
 
 	private void createTables () throws SQLException
@@ -429,6 +456,7 @@ public class DBHelper
 		}
 		catch(NumberFormatException e)
 		{
+			e.printStackTrace();
 			return -1;
 		}
 		
@@ -446,6 +474,7 @@ public class DBHelper
 		}
 		catch(ParseException e)
 		{
+			e.printStackTrace();
 			return null;
 		}
 		
