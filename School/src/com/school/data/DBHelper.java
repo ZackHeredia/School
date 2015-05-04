@@ -57,13 +57,13 @@ public class DBHelper
 		else if(birth != null)
 		{
 			sql = "SELECT * FROM " + StudentEntry.TABLE_NAME + " WHERE " + StudentEntry.BIRTH_COLUMN +
-				  "=" + value;
+				  "='" + value + "'";
 		}
 		else
 			sql = "SELECT * FROM " + StudentEntry.TABLE_NAME + " WHERE " + StudentEntry.NAME_COLUMN +
-				  "=" + value + " OR " + StudentEntry.PHONE_COLUMN + "=" + value + " OR " + 
-				  StudentEntry.ADDRESS_COLUMN + "=" + value + " OR " + StudentEntry.COURSE_COLUMN +
-				  "=" + value + " OR " + StudentEntry.TUTOR_COLUMN + "=" + value;
+				  "='" + value + "' OR " + StudentEntry.PHONE_COLUMN + "='" + value + "' OR " + 
+				  StudentEntry.ADDRESS_COLUMN + "='" + value + "' OR " + StudentEntry.COURSE_COLUMN +
+				  "='" + value + "' OR " + StudentEntry.TUTOR_COLUMN + "='" + value + "'";
 		
 		try
 		{
@@ -104,13 +104,13 @@ public class DBHelper
 		else if(birth != null)
 		{
 			sql = "SELECT * FROM " + TeacherEntry.TABLE_NAME + " WHERE " + TeacherEntry.BIRTH_COLUMN +
-				  "=" + value;
+				  "='" + value + "'";
 		}
 		else
 			sql = "SELECT * FROM " + TeacherEntry.TABLE_NAME + " WHERE " + TeacherEntry.NAME_COLUMN +
-				  "=" + value + " OR " + TeacherEntry.PHONE_COLUMN + "=" + value + " OR " + 
-				  TeacherEntry.ADDRESS_COLUMN + "=" + value + " OR " + TeacherEntry.SUBJECT_COLUMN +
-				  "=" + value;
+				  "='" + value + "' OR " + TeacherEntry.PHONE_COLUMN + "='" + value + "' OR " + 
+				  TeacherEntry.ADDRESS_COLUMN + "='" + value + "' OR " + TeacherEntry.SUBJECT_COLUMN +
+				  "='" + value + "'";
 		
 		try
 		{
@@ -150,13 +150,13 @@ public class DBHelper
 		else if(birth != null)
 		{
 			sql = "SELECT * FROM " + EmployeeEntry.TABLE_NAME + " WHERE " + EmployeeEntry.BIRTH_COLUMN +
-				  "=" + value;
+				  "='" + value + "'";
 		}
 		else
 			sql = "SELECT * FROM " + EmployeeEntry.TABLE_NAME + " WHERE " + EmployeeEntry.NAME_COLUMN +
-				  "=" + value + " OR " + EmployeeEntry.PHONE_COLUMN + "=" + value + " OR " + 
-				  EmployeeEntry.ADDRESS_COLUMN + "=" + value + " OR " + EmployeeEntry.JOB_COLUMN +
-				  "=" + value;
+				  "='" + value + "' OR " + EmployeeEntry.PHONE_COLUMN + "='" + value + "' OR " + 
+				  EmployeeEntry.ADDRESS_COLUMN + "='" + value + "' OR " + EmployeeEntry.JOB_COLUMN +
+				  "='" + value + "'";
 		
 		try
 		{
@@ -165,11 +165,11 @@ public class DBHelper
 			while(rs.next())
 			{
 				employees.add(new Employee(rs.getLong(EmployeeEntry.ID_COLUMN), 
-							 			 rs.getString(EmployeeEntry.NAME_COLUMN),
-							 			 rs.getDate(EmployeeEntry.BIRTH_COLUMN),
-							 			 rs.getString(EmployeeEntry.PHONE_COLUMN),
-							 			 rs.getString(EmployeeEntry.ADDRESS_COLUMN),
-							 			 rs.getString(EmployeeEntry.JOB_COLUMN)));
+							 			   rs.getString(EmployeeEntry.NAME_COLUMN),
+							 			   rs.getDate(EmployeeEntry.BIRTH_COLUMN),
+							 			   rs.getString(EmployeeEntry.PHONE_COLUMN),
+							 			   rs.getString(EmployeeEntry.ADDRESS_COLUMN),
+							 			   rs.getString(EmployeeEntry.JOB_COLUMN)));
 			}
 			
 			rs.close();
@@ -184,8 +184,10 @@ public class DBHelper
 
 	public boolean insertStudent (Student student) 
 	{
-		String sql;
 		boolean isSuccessfull;
+		
+		String sql = "INSERT INTO " + StudentEntry.TABLE_NAME + " (" + StudentEntry.NAME_COLUMN ", " +
+					 Student;
 		
 		try
 		{
@@ -193,7 +195,6 @@ public class DBHelper
 		} 
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
