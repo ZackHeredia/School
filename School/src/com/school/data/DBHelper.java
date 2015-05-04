@@ -184,10 +184,15 @@ public class DBHelper
 
 	public boolean insertStudent (Student student) 
 	{
-		boolean isSuccessfull;
+		boolean isSuccessfull = false;
 		
-		String sql = "INSERT INTO " + StudentEntry.TABLE_NAME + " (" + StudentEntry.NAME_COLUMN ", " +
-					 Student;
+		String sql = "INSERT INTO " + StudentEntry.TABLE_NAME + " (" + StudentEntry.NAME_COLUMN + ", " +
+					 StudentEntry.BIRTH_COLUMN + ", " + StudentEntry.PHONE_COLUMN + ", " +
+					 StudentEntry.ADDRESS_COLUMN + ", " + StudentEntry.COURSE_COLUMN + ", " +
+					 StudentEntry.TUTOR_COLUMN + ") VALUES ('" + student.getName() + "', '" + 
+					 student.getBirth().toString() + "', '" + student.getPhone() + "', '" +
+					 student.getAddress() + "', '" + student.getCourse() + "', '" +
+					 student.getTutor() + "')";
 		
 		try
 		{
@@ -202,8 +207,14 @@ public class DBHelper
 	}
 	public boolean insertTeacher (Teacher teacher) 
 	{
-		String sql;
-		boolean isSuccessfull;
+		boolean isSuccessfull = false;
+		
+		String sql = "INSERT INTO " + TeacherEntry.TABLE_NAME + " (" + TeacherEntry.NAME_COLUMN + ", " +
+					 TeacherEntry.BIRTH_COLUMN + ", " + TeacherEntry.PHONE_COLUMN + ", " +
+					 TeacherEntry.ADDRESS_COLUMN + ", " + TeacherEntry.SUBJECT_COLUMN +") VALUES ('" + 
+					 teacher.getName() + "', '" + teacher.getBirth().toString() + "', '" + 
+					 teacher.getPhone() + "', '" + teacher.getAddress() + "', '" + teacher.getSubject() + 
+					 "')";
 		
 		try
 		{
@@ -211,7 +222,6 @@ public class DBHelper
 		} 
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -219,8 +229,14 @@ public class DBHelper
 	}
 	public boolean insertEmployee (Employee employee) 
 	{
-		String sql;
-		boolean isSuccessfull;
+		boolean isSuccessfull = false;
+		
+		String sql = "INSERT INTO " + EmployeeEntry.TABLE_NAME + " (" + EmployeeEntry.NAME_COLUMN + ", " +
+					 EmployeeEntry.BIRTH_COLUMN + ", " + EmployeeEntry.PHONE_COLUMN + ", " +
+					 EmployeeEntry.ADDRESS_COLUMN + ", " + EmployeeEntry.JOB_COLUMN +") VALUES ('" + 
+					 employee.getName() + "', '" + employee.getBirth().toString() + "', '" + 
+					 employee.getPhone() + "', '" + employee.getAddress() + "', '" + employee.getJob() + 
+					 "')";
 		
 		try
 		{
@@ -228,7 +244,6 @@ public class DBHelper
 		} 
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
