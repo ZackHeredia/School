@@ -9,6 +9,8 @@ public abstract class Person
 	private Date birth;
 	private String phone;
 	private String address;
+	
+	public Person () {}
 
 	public Person (long id, String name, Date birth, String phone, String address) 
 	{

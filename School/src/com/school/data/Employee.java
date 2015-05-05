@@ -5,6 +5,8 @@ import java.sql.Date;
 public class Employee extends Person
 {
 	private String job;
+	
+	public Employee () {}
 
 	public Employee (long id, String name, Date birth, String phone, String address, String job) 
 	{

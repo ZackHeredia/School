@@ -5,6 +5,8 @@ import java.sql.Date;
 public class Teacher extends Person
 {
 	private String subject;
+	
+	public Teacher () {}
 
 	public Teacher (long id, String name, Date birth, String phone, String address, String subject) 
 	{

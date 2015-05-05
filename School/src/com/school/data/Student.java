@@ -6,6 +6,8 @@ public class Student extends Person
 {
 	private String course;
 	private String tutor;
+	
+	public Student () {}
 
 	public Student (long id, String name, Date birth, String phone, String address, String course, String tutor) 
 	{

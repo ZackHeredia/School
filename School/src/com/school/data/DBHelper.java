@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class DBHelper
 {
 	private Connection connection;
-	private DBHelper helper = null;
+	private static DBHelper helper = null;
 
 	private DBHelper() 
 	{
@@ -34,7 +34,7 @@ public class DBHelper
 		}
 	}
 
-	public DBHelper getHelperInstance () 
+	public static DBHelper getHelperInstance () 
 	{
 		if (helper == null)
 			helper = new DBHelper();
@@ -84,7 +84,6 @@ public class DBHelper
 		} 
 		catch (SQLException e)
 		{
-			e.printStackTrace();
 			return null;
 		}
 		
@@ -131,7 +130,6 @@ public class DBHelper
 		} 
 		catch (SQLException e)
 		{
-			e.printStackTrace();
 			return null;
 		}
 		
@@ -178,7 +176,6 @@ public class DBHelper
 		} 
 		catch (SQLException e)
 		{
-			e.printStackTrace();
 			return null;
 		}
 		
@@ -203,7 +200,7 @@ public class DBHelper
 		} 
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			return false;
 		}
 		
 		return isSuccessfull;
@@ -225,7 +222,6 @@ public class DBHelper
 		} 
 		catch (SQLException e)
 		{
-			e.printStackTrace();
 			return false;
 		}
 		
@@ -248,7 +244,6 @@ public class DBHelper
 		} 
 		catch (SQLException e)
 		{
-			e.printStackTrace();
 			return false;
 		}
 		
@@ -273,7 +268,6 @@ public class DBHelper
 		} 
 		catch (SQLException e)
 		{
-			e.printStackTrace();
 			return false;
 		}
 		
@@ -296,7 +290,6 @@ public class DBHelper
 		} 
 		catch (SQLException e)
 		{
-			e.printStackTrace();
 			return false;
 		}
 		
@@ -319,7 +312,6 @@ public class DBHelper
 		} 
 		catch (SQLException e)
 		{
-			e.printStackTrace();
 			return false;
 		}
 		
@@ -339,7 +331,6 @@ public class DBHelper
 		} 
 		catch (SQLException e)
 		{
-			e.printStackTrace();
 			return false;
 		}
 		
@@ -358,7 +349,6 @@ public class DBHelper
 		} 
 		catch (SQLException e)
 		{
-			e.printStackTrace();
 			return false;
 		}
 		
@@ -377,7 +367,6 @@ public class DBHelper
 		} 
 		catch (SQLException e)
 		{
-			e.printStackTrace();
 			return false;
 		}
 		
@@ -401,20 +390,20 @@ public class DBHelper
 	{
 		DatabaseMetaData dbmd = connection.getMetaData();
 		
-		ResultSet rs = dbmd.getTables(null, null, "%", null);
+		ResultSet rs = dbmd.getTables(null, null, "%", new String[]{"TABLE"});
 		if(!rs.next())
 		{
-			String sqlPerson = " (" + PersonEntry.ID_COLUMN + " LONG NOT NULL GENERATED " +
+			String sqlPerson = " (" + PersonEntry.ID_COLUMN + " BIGINT NOT NULL GENERATED " +
 							   "ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
 							   PersonEntry.NAME_COLUMN + " VARCHAR(40), " + 
 							   PersonEntry.PHONE_COLUMN + " VARCHAR(16), " + 
 							   PersonEntry.ADDRESS_COLUMN + " VARCHAR(160), " +
 							   PersonEntry.BIRTH_COLUMN + " DATE, ";
 			String sqlStudent = StudentEntry.COURSE_COLUMN + " VARCHAR(10), " +
-							   	StudentEntry.TUTOR_COLUMN + " VARCHAR(40), ";
-			String sqlTeacher = TeacherEntry.SUBJECT_COLUMN + " VARCHAR(24), ";
-			String sqlEmployee = EmployeeEntry.JOB_COLUMN + " VARCHAR(24), ";
-			String sqlKey = "CONSTRAINT primary_key PRIMARY KEY (" + PersonEntry.ID_COLUMN + 
+							   	StudentEntry.TUTOR_COLUMN + " VARCHAR(40), CONSTRAINT student_pk ";
+			String sqlTeacher = TeacherEntry.SUBJECT_COLUMN + " VARCHAR(24), CONSTRAINT teacher_pk ";
+			String sqlEmployee = EmployeeEntry.JOB_COLUMN + " VARCHAR(24), CONSTRAINT employee_pk ";
+			String sqlKey = "PRIMARY KEY (" + PersonEntry.ID_COLUMN + 
 							"))";
 			
 			String sql = "CREATE TABLE " + StudentEntry.TABLE_NAME + sqlPerson + 
@@ -446,7 +435,7 @@ public class DBHelper
 		return isSuccessfull;
 	}
 	
-	private long parseLong (String string)
+	public long parseLong (String string)
 	{	
 		long result;
 		
@@ -456,25 +445,25 @@ public class DBHelper
 		}
 		catch(NumberFormatException e)
 		{
-			e.printStackTrace();
 			return -1;
 		}
 		
 		return result;
 	}
-	private Date parseDate (String string)
+	public Date parseDate (String string)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		sdf.setLenient(false);
+		java.util.Date utilDate;
 		Date date;
 		
 		try
 		{
-			date = (Date) sdf.parse(string);
+			utilDate = sdf.parse(string);
+			date = new Date(utilDate.getTime());
 		}
 		catch(ParseException e)
 		{
-			e.printStackTrace();
 			return null;
 		}
 		
